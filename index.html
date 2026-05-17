@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Product Review Analyzer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <!-- HEADER -->
+    <header class="header">
+      <div class="logo">🤖</div>
+      <h1>AI Product Review Analyzer</h1>
+      <p>Get instant reviews from Amazon, Flipkart, YouTube & Google — powered by Gemini + Groq</p>
+    </header>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button id="tabProduct" class="tab-btn active" onclick="switchTab('product')">🛍️ Product Review</button>
+      <button id="tabCode" class="tab-btn" onclick="switchTab('code')">💻 Code Review</button>
+    </div>
+
+    <!-- PRODUCT SEARCH BOX -->
+    <div id="productSection" class="search-box">
+      <input
+        type="text"
+        id="productInput"
+        placeholder="Enter product name (e.g. iPhone 15, OnePlus 12, boAt earbuds...)"
+        autocomplete="off"
+      />
+      <button id="analyzeBtn" onclick="analyzeProduct()">
+        <span id="btnText">🔍 Analyze</span>
+        <span id="btnLoader" class="hidden">⏳ Analyzing...</span>
+      </button>
+    </div>
+
+    <!-- CODE REVIEW BOX (Hidden by default) -->
+    <div id="codeSection" class="code-box hidden">
+      <textarea id="codeInput" rows="8" placeholder="Paste your JavaScript, Python, or HTML code here..."></textarea>
+      <button id="analyzeCodeBtn" onclick="analyzeCodeSnippet()">
+        <span id="codeBtnText">🧑‍💻 Review Code</span>
+        <span id="codeBtnLoader" class="hidden">⏳ Analyzing...</span>
+      </button>
+    </div>
+
+    <!-- ERROR BOX -->
+    <div id="errorBox" class="error-box hidden"></div>
+
+    <!-- RESULTS -->
+    <div id="results" class="hidden">
+
+      <!-- PRODUCT TITLE + RATING -->
+      <div class="result-header">
+        <div class="product-title">
+          <h2 id="productName"></h2>
+          <span id="confidenceScore" class="confidence-badge"></span>
+        </div>
+        <div class="rating-box">
+          <div id="ratingStars" class="stars"></div>
+          <span id="ratingNumber" class="rating-number"></span>
+          <span class="rating-label">/ 10</span>
+        </div>
+      </div>
+
+      <!-- SUMMARY -->
+      <div class="card summary-card">
+        <h3>📋 Summary</h3>
+        <p id="summary"></p>
+      </div>
+
+      <!-- PROS & CONS -->
+      <div class="two-col">
+        <div class="card pros-card">
+          <h3>✅ Pros</h3>
+          <ul id="prosList"></ul>
+        </div>
+        <div class="card cons-card">
+          <h3>❌ Cons</h3>
+          <ul id="consList"></ul>
+        </div>
+      </div>
+
+      <!-- PLATFORM INSIGHTS -->
+      <div class="card">
+        <h3>🌐 Platform Insights</h3>
+        <div class="platforms-grid">
+          <div class="platform-card amazon">
+            <span class="platform-icon">🛒</span>
+            <h4>Amazon</h4>
+            <p id="amazonInsight"></p>
+          </div>
+          <div class="platform-card flipkart">
+            <span class="platform-icon">⚡</span>
+            <h4>Flipkart</h4>
+            <p id="flipkartInsight"></p>
+          </div>
+          <div class="platform-card youtube">
+            <span class="platform-icon">▶️</span>
+            <h4>YouTube</h4>
+            <p id="youtubeInsight"></p>
+          </div>
+          <div class="platform-card google">
+            <span class="platform-icon">🔍</span>
+            <h4>Google</h4>
+            <p id="googleInsight"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- WHO SHOULD BUY / AVOID -->
+      <div class="two-col">
+        <div class="card buy-card">
+          <h3>👍 Who Should Buy</h3>
+          <p id="whoBuy"></p>
+        </div>
+        <div class="card avoid-card">
+          <h3>👎 Who Should Avoid</h3>
+          <p id="whoAvoid"></p>
+        </div>
+      </div>
+
+      <!-- PRICE VALUE + ALTERNATIVES -->
+      <div class="two-col">
+        <div class="card">
+          <h3>💰 Value for Money</h3>
+          <p id="priceValue"></p>
+        </div>
+        <div class="card">
+          <h3>🔄 Alternatives</h3>
+          <ul id="alternativesList"></ul>
+        </div>
+      </div>
+
+      <!-- FINAL VERDICT -->
+      <div class="card verdict-card">
+        <h3>🏆 Final Verdict</h3>
+        <p id="finalVerdict"></p>
+      </div>
+
+      <!-- SOURCES -->
+      <div class="card sources-card">
+        <h3>📚 Sources Used</h3>
+        <div id="sourcesList" class="sources-grid"></div>
+      </div>
+
+    </div>
+
+    <!-- CODE REVIEW RESULTS -->
+    <div id="codeResults" class="hidden">
+      <div class="result-header">
+        <div class="product-title">
+          <h2>Code Quality Score</h2>
+          <span id="codeScore" class="confidence-badge"></span>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="card cons-card">
+          <h3>🐛 Bugs Found</h3>
+          <ul id="bugsList"></ul>
+        </div>
+        <div class="card pros-card">
+          <h3>💡 Suggestions</h3>
+          <ul id="suggestionsList"></ul>
+        </div>
+      </div>
+      <div class="card verdict-card">
+        <h3>✅ Corrected Code</h3>
+        <pre><code id="correctedCode"></code></pre>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
